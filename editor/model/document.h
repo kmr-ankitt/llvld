@@ -8,6 +8,7 @@ private:
 
 public:
   DocumentModel();
+  ~DocumentModel();
 
   void addElement(DocumentElement *element);
   std::vector<DocumentElement> getElements();
