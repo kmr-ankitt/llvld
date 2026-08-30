@@ -1,19 +1,18 @@
 #pragma once
+#include "../element/document_element.h"
 #include <sqlite3.h>
 #include <string>
 
+
 class DocumentPersistence {
 public:
-  DocumentPersistence();
-  ~DocumentPersistence();
-  virtual void save(const std::string &data);
+  virtual ~DocumentPersistence() = default;
+  virtual void save(DocumentElement &data) = 0;
 };
 
 class DocumentPersistenceIntoFile : public DocumentPersistence {
 public:
-  DocumentPersistenceIntoFile();
-  ~DocumentPersistenceIntoFile();
-  void save(const std::string &data) override;
+  void save(DocumentElement &data) override;
 };
 
 class DocumentPersistenceIntoDatabase : public DocumentPersistence {
@@ -23,5 +22,6 @@ private:
 public:
   DocumentPersistenceIntoDatabase();
   ~DocumentPersistenceIntoDatabase();
-  void save(const std::string &data) override;
+
+  void save(DocumentElement &data) override;
 };
