@@ -7,7 +7,8 @@ int main() {
   editor.addText("Hello from llvld!");
   editor.addImage("./assets/hank.jpg");
 
-  editor.saveDocument();
+  editor.saveToFile();
+  editor.saveToDatabase();
 
   return 0;
 }

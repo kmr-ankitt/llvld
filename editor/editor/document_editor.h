@@ -9,12 +9,16 @@
 class DocumentEditor {
 private:
   std::unique_ptr<DocumentModel> doc;
-  std::unique_ptr<DocumentPersistence> store;
+
+  std::unique_ptr<DocumentPersistence> databaseStore;
+  std::unique_ptr<DocumentPersistence> fileStore;
 
 public:
   DocumentEditor();
 
   void addText(const std::string &text);
   void addImage(const std::string &imagePath);
-  void saveDocument();
+
+  void saveToDatabase();
+  void saveToFile();
 };

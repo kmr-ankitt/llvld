@@ -2,7 +2,8 @@
 
 DocumentEditor::DocumentEditor()
     : doc(std::make_unique<DocumentModel>()),
-      store(std::make_unique<DocumentPersistenceIntoDatabase>()) {}
+      databaseStore(std::make_unique<DocumentPersistenceIntoDatabase>()),
+      fileStore(std::make_unique<DocumentPersistenceIntoFile>()) {}
 
 void DocumentEditor::addText(const std::string &text) {
   doc->addElement(new TextElement(text));
@@ -12,4 +13,6 @@ void DocumentEditor::addImage(const std::string &imagePath) {
   doc->addElement(new ImageElement(imagePath));
 }
 
-void DocumentEditor::saveDocument() { store->save(*doc); }
+void DocumentEditor::saveToDatabase() { databaseStore->save(*doc); }
+
+void DocumentEditor::saveToFile() { fileStore->save(*doc); }
