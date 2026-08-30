@@ -4,12 +4,12 @@
 
 class DocumentModel {
 private:
-  std::vector<DocumentElement *> elements;
+    std::vector<DocumentElement*> elements;
 
 public:
-  DocumentModel();
-  ~DocumentModel();
+    DocumentModel();
+    ~DocumentModel();
 
-  void addElement(DocumentElement *element);
-  std::vector<DocumentElement> getElements();
+    void addElement(DocumentElement* element);
+    std::vector<DocumentElement*> getElements();
 };
