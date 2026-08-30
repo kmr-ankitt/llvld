@@ -1,9 +1,15 @@
 #include "document.h"
 
-void DocumentModel::addElement(DocumentElement *element) {
-  elements.push_back(element);
+DocumentModel::~DocumentModel() {
+    for (DocumentElement* element : elements) {
+        delete element;
+    }
 }
 
-std::vector<DocumentElement*> DocumentModel::getElements() {
-  return elements; 
+void DocumentModel::addElement(DocumentElement* element) {
+    elements.push_back(element);
+}
+
+const std::vector<DocumentElement*>& DocumentModel::getElements() const {
+    return elements;
 }

@@ -7,9 +7,9 @@ private:
     std::vector<DocumentElement*> elements;
 
 public:
-    DocumentModel();
+    DocumentModel() = default;
     ~DocumentModel();
 
     void addElement(DocumentElement* element);
-    std::vector<DocumentElement*> getElements();
+    const std::vector<DocumentElement*> &getElements() const;
 };
