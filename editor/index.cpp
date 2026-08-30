@@ -1,6 +1,13 @@
-#include "element/document_element.h"
+#include "editor/document_editor.h"
 
-int main(){
-    DocumentElement* image = new ImageElement("/home/ankit/Pictures/hank.jpg");
-    image->render();
+int main() {
+
+  DocumentEditor editor;
+
+  editor.addText("Hello from llvld!");
+  editor.addImage("./assets/hank.jpg");
+
+  editor.saveDocument();
+
+  return 0;
 }
