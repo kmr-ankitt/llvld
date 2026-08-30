@@ -30,40 +30,45 @@ DocumentPersistenceIntoDatabase::~DocumentPersistenceIntoDatabase() {
   }
 }
 
-void DocumentPersistenceIntoDatabase::save(DocumentElement &data) {
-
-  std::string type;
-  std::string value;
-
-  if (auto *text = dynamic_cast<TextElement *>(&data)) {
-    type = "text";
-    value = text->getText();
-  } else if (auto *image = dynamic_cast<ImageElement *>(&data)) {
-    type = "image";
-    value = image->getImagePath();
-  } else {
-    throw std::runtime_error("Unknown DocumentElement type");
-  }
+void DocumentPersistenceIntoDatabase::save(const DocumentModel &document) {
 
   const char *sql = R"(
         INSERT INTO document_elements (type, data)
         VALUES (?, ?);
     )";
 
-  sqlite3_stmt *stmt = nullptr;
+  for (DocumentElement *element : document.getElements()) {
 
-  if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
-    throw std::runtime_error("Failed to prepare SQL statement");
-  }
+    std::string type;
+    std::string value;
 
-  sqlite3_bind_text(stmt, 1, type.c_str(), -1, SQLITE_TRANSIENT);
+    if (auto *text = dynamic_cast<TextElement *>(element)) {
+      type = "text";
+      value = text->getText();
 
-  sqlite3_bind_text(stmt, 2, value.c_str(), -1, SQLITE_TRANSIENT);
+    } else if (auto *image = dynamic_cast<ImageElement *>(element)) {
+      type = "image";
+      value = image->getImagePath();
 
-  if (sqlite3_step(stmt) != SQLITE_DONE) {
+    } else {
+      throw std::runtime_error("Unknown DocumentElement type");
+    }
+
+    sqlite3_stmt *stmt = nullptr;
+
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+      throw std::runtime_error("Failed to prepare SQL statement");
+    }
+
+    sqlite3_bind_text(stmt, 1, type.c_str(), -1, SQLITE_TRANSIENT);
+
+    sqlite3_bind_text(stmt, 2, value.c_str(), -1, SQLITE_TRANSIENT);
+
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+      sqlite3_finalize(stmt);
+      throw std::runtime_error("Failed to save document element");
+    }
+
     sqlite3_finalize(stmt);
-    throw std::runtime_error("Failed to save document element");
   }
-
-  sqlite3_finalize(stmt);
 }
