@@ -51,6 +51,10 @@ void imageToAscii(const std::string& imagePath) {
     stbi_image_free(image);
 }
 
+const std::string ImageElement::getImagePath() const {
+    return this->imagePath;
+}
+
 void ImageElement::render() {
     imageToAscii(this->imagePath);
 }

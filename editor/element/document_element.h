@@ -15,6 +15,7 @@ private:
 public:
   TextElement(const std::string &text);
   void render() override;
+  const std::string getText() const;
 };
 
 class ImageElement : public DocumentElement {
@@ -24,4 +25,5 @@ private:
 public:
   ImageElement(const std::string &path);
   void render() override;
+  const std::string getImagePath() const;
 };
