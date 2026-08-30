@@ -7,11 +7,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(editor
     index.cpp
+
     element/text_element.cpp
     element/image_element.cpp
+
+    model/document.cpp
+
     persistence/save_to_file.cpp
     persistence/save_to_db.cpp
-    model/document.cpp
+
+    renderer/document_renderer.cpp
+    editor/document_editor.cpp
 )
 
 target_include_directories(editor PRIVATE
