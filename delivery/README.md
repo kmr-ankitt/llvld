@@ -1,10 +1,10 @@
-# 🍅 Tomato - Food Delivery System (C++ LLD)
+# Tomato - Food Delivery Application
 
-A clean Low-Level Design (LLD) implementation of an online food delivery system in C++17 based on `arch.png`.
+A clean Low-Level Design (LLD) implementation of an online food delivery system.
 
 ---
 
-## 📐 Architecture & Class Diagram
+## Architecture & Class Diagram
 
 ```mermaid
 classDiagram
@@ -146,7 +146,7 @@ delivery/
 
 ---
 
-## 🚀 Build & Run
+## Build & Run
 
 ```bash
 # Compile
